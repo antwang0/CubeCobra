@@ -11,6 +11,8 @@ Running CubeCobra within Docker is the simplest and fastest way to get everythin
 
 ## Initial Setup
 
+Copy `packages/server/.env_EXAMPLE` to `packages/server/.env` and change any of config if necessary.
+
 For the first setup, you will need to run the following from the root of the repository:
 
 ```sh

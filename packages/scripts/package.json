@@ -12,7 +12,7 @@
     "setup:local": "npm run start:localstack && npm run setup:local:env && npm run setup:local:localstack && npm run setup:local:files && npm run setup:local:db && npm run update-combos && npm run update-cards",
     "setup:local:localstack": "./src/local/init_localstack.sh",
     "setup:local:env": "cp -n .env_EXAMPLE .env",
-    "setup:local:files": "node src/create_local_files.js",
+    "setup:local:files": "ts-node src/create_local_files.ts",
     "setup:local:db": "NODE_OPTIONS=--max-old-space-size=8192 ts-node -r tsconfig-paths/register src/createTables.ts",
     "create-mock-files": "ts-node src/create_local_files.ts"
   },
@@ -20,17 +20,17 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/node": "^24.10.0",
+    "@types/node": "^25.0.9",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.948.0",
-    "@aws-sdk/client-s3": "^3.927.0",
-    "@aws-sdk/credential-providers": "^3.927.0",
-    "@aws-sdk/lib-dynamodb": "^3.948.0",
-    "@aws-sdk/lib-storage": "^3.927.0",
+    "@aws-sdk/client-dynamodb": "^3.970.0",
+    "@aws-sdk/client-s3": "^3.971.0",
+    "@aws-sdk/credential-providers": "^3.971.0",
+    "@aws-sdk/lib-dynamodb": "^3.971.0",
+    "@aws-sdk/lib-storage": "^3.971.0",
     "archiver": "^7.0.1",
     "dotenv": "^17.2.3"
   }

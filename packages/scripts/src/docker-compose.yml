@@ -2,9 +2,10 @@
 services:
   node:
     container_name: cube
-    image: node:22.11.0
+    image: node:25.3.0
     volumes:
-      - ../../../:/home/node/app
+      - ../../../:/home/node/app:cached
+      - cube_node_modules:/home/node/node_modules
     user: 'node'
     working_dir: /home/node/app
     environment:
@@ -21,9 +22,7 @@ services:
     expose:
       - '8080'
       - '5001'
-    # Relative to root directory
-    command: ./packages/scripts/src/docker/run.sh
-    entrypoint: ['/bin/sh']
+    command: ["sh", "./packages/scripts/src/docker/run.sh"]
     init: true
     networks:
       - cubecobra
@@ -54,7 +53,7 @@ services:
 
 volumes:
   localstack:
-    name: 'localstack'
+  cube_node_modules:
 
 networks:
   # Rename. by default network is prefixed by folder name

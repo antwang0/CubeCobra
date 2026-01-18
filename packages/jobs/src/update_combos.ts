@@ -27,7 +27,7 @@ const loadMetadata = async () => {
   };
 };
 
-const fetchWithRetries = async (url: string, retries = 3, delay = 1000): Promise<any> => {
+const fetchWithRetries = async (url: string, retries = 8, delay = 5000): Promise<any> => {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       return await new Promise<any>((resolve, reject) => {
@@ -58,9 +58,9 @@ const fetchWithRetries = async (url: string, retries = 3, delay = 1000): Promise
       });
     } catch (error) {
       if (error instanceof Error) {
-        console.error(`Attempt ${attempt} failed: ${error.message}`);
+        console.error(`Attempt ${attempt} failed for ${url} with error: ${error.message}`);
       } else {
-        console.error(`Attempt ${attempt} failed with an unknown error:`, error);
+        console.error(`Attempt ${attempt} failed for ${url} with an unknown error:`, error);
       }
       if (attempt < retries) {
         const backoff = delay * Math.pow(2, attempt - 1); // Exponential backoff
@@ -166,10 +166,6 @@ const fetchAllPages = async (
     const total = Object.values(dataById).length;
 
     for (const id in dataById) {
-      processed += 1;
-      if (processed % 1000 === 0) {
-        console.log(`Processed ${processed} of ${total}`);
-      }
       const variant = dataById[id];
 
       if (!variant || !variant.uses) {
@@ -194,6 +190,12 @@ const fetchAllPages = async (
         currentNode['$'] = [];
       }
       currentNode['$'].push(id);
+
+      processed += 1;
+      if (processed % 1000 === 0) {
+        // TODO: doesn't print the last batch iff total % 1000 != 0
+        console.log(`Processed ${processed} of ${total}`);
+      }
     }
 
     console.log('Saving comboTree.json...');
